@@ -1,6 +1,6 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {useContext} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Platform} from 'react-native';
 import {MainContext} from '../contexts/MainContext';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#b0dbff',
     bottom: -2,
     marginHorizontal: 5,
-    height: 60,
+    height: Platform.OS === 'android' ? 60 : 92,
     paddingVertical: 0,
     borderRadius: 15,
     ...SHADOWS.dark,

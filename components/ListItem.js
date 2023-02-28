@@ -261,14 +261,14 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
         <View style={styles.feedImageContainer}>
           {singleMedia.media_type === 'image' ? (
             <Image
-              style={styles.image}
+              style={styles.video}
               source={{uri: uploadsUrl + singleMedia.filename}}
             />
           ) : (
             <Video
               ref={video}
               source={{uri: uploadsUrl + singleMedia.filename}}
-              style={{width: '100%', height: 250, marginRight: 0}}
+              style={styles.video}
               resizeMode="cover"
               useNativeControls
               onError={(error) => {
@@ -286,7 +286,14 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
             style={{flexDirection: 'row'}}
             onPress={() => navigation.navigate('LikedBy', {file: singleMedia})}
           >
-            <Image source={LikeImage} style={styles.likeIcon} />
+            <Icon
+              name="heart"
+              type="material-community"
+              size={22}
+              color={'#3786e8'}
+              iconStyle={styles.likeIcon}
+            />
+
             <Text style={styles.likedBy}> {likes.length}</Text>
           </Pressable>
           <Icon
@@ -448,6 +455,12 @@ const styles = StyleSheet.create({
     borderRadius: SIZES.font,
     margin: 5,
   },
+  video: {
+    width: '100%',
+    height: '100%',
+
+    margin: 5,
+  },
   feedImageContainer: {width: '97%', height: 250},
   // Footer
   footer: {paddingHorizontal: 10},
@@ -457,7 +470,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: 'lightgray',
   },
-  likeIcon: {width: 20, height: 20, marginRight: 5},
+  likeIcon: {marginRight: 1},
   likedBy: {color: 'gray'},
   shares: {
     marginLeft: 'auto',

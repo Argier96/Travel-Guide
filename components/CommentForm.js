@@ -27,11 +27,11 @@ const CommentForm = ({fileId}) => {
     formState: {errors},
   } = useForm({
     defaultValues: {
-      userComment: '',
+      comment: '',
     },
   });
   const reset = () => {
-    setValue('userComment', '');
+    setValue('comment', '');
   };
   useFocusEffect(
     useCallback(() => {
@@ -54,7 +54,7 @@ const CommentForm = ({fileId}) => {
             text: 'OK',
             onPress: () => {
               Keyboard.dismiss();
-              setValue('');
+              reset();
               setCommentUpdate(commentUpdate + 1);
             },
           },

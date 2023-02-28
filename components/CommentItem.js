@@ -71,83 +71,28 @@ const CommentItem = ({navigation, singleComment}) => {
     fetchCommentOwner();
     loadAvatar();
   }, []);
-
-  const buttons = [
-    {
-      element: () => (
-        <Button
-          icon={{
-            name: 'delete',
-            size: 20,
-          }}
-          buttonStyle={{backgroundColor: 'red', width: 50, height: 50}}
-          onPress={doDeleteComment}
-        />
-      ),
-    },
-    {
-      element: () => (
-        <Button
-          icon={{
-            name: 'create',
-            size: 20,
-            type: 'ionicon',
-          }}
-          buttonStyle={{backgroundColor: 'green', width: 50, height: 50}}
-          onPress={() => {
-            console.log('Edit comment');
-          }}
-        />
-      ),
-    },
-  ];
-  return (
-    <View style={styles.post}>
-      {user.user_id === singleComment.user_id ? (
+  const CommentCard = () => {
+    return (
+      <View style={styles.header}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <RNEListItem.Swipeable
-            containerStyle={{height: 60}}
-            onPress={doDeleteComment}
-            rightContent={() => (
-              <ListItemButtonGroup
-                buttons={buttons}
-                containerStyle={{width: 100}}
-                innerBorderStyle={{color: 'gray'}}
-              ></ListItemButtonGroup>
-            )}
-          >
-            <View style={styles.header}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image style={styles.profileImage} source={{uri: avatar}} />
-                <View>
-                  <Text style={styles.name}>{commentOwner.username}</Text>
-                  <Text style={styles.subtitle}>
-                    {moment(singleComment.time_added).startOf('hour').fromNow()}
-                  </Text>
-                </View>
-              </View>
-              <Text style={{marginLeft: 10}}>{singleComment.comment}</Text>
-            </View>
-          </RNEListItem.Swipeable>
-        </View>
-      ) : (
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <View style={styles.header}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Image style={styles.profileImage2} source={{uri: avatar}} />
-              <View>
-                <Text style={styles.name}>{commentOwner.username}</Text>
-                <Text style={styles.subtitle}>
-                  {moment(singleComment.time_added).startOf('hour').fromNow()}
-                </Text>
-              </View>
-            </View>
-            <Text numberOfLines={3} style={{marginLeft: 10}}>
-              {singleComment.comment}
+          <Image style={styles.profileImage} source={{uri: avatar}} />
+          <View style={{marginLeft: 0}}>
+            <Text style={styles.name}>{commentOwner.username}</Text>
+            <Text style={styles.subtitle}>
+              {moment(singleComment.time_added).fromNow()}
             </Text>
           </View>
         </View>
-      )}
+        <Text style={{marginLeft: 10}}>{singleComment.comment}</Text>
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.post}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <CommentCard />
+      </View>
     </View>
   );
 };
@@ -160,9 +105,9 @@ export default CommentItem;
 const styles = StyleSheet.create({
   cardContainer: {},
   post: {
-    height: 55,
-    backgroundColor: COLORS.white,
-    margin: 5,
+    height: 50,
+    backgroundColor: '#E6EEFA',
+    margin: 1,
     ...SHADOWS.dark,
   },
   header: {
@@ -171,22 +116,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 5,
   },
+
   profileImage: {
     width: 40,
     height: 40,
     borderRadius: 25,
     marginRight: 10,
-    marginLeft: -5,
-  },
-  profileImage2: {
-    width: 40,
-    height: 40,
-    borderRadius: 25,
-    marginRight: 10,
-    marginLeft: 10,
+    marginLeft: 1,
   },
   name: {fontWeight: '500', fontSize: 12},
-  subtitle: {color: 'gray', fontSize: 10},
+  subtitle: {color: 'gray', fontSize: 9},
   icon: {marginLeft: 'auto'},
   // Body
   description: {paddingHorizontal: 10, lineHeight: 20, letterSpacing: 0.3},

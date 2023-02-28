@@ -12,11 +12,12 @@ import {Divider, Icon} from '@rneui/themed';
 import CommentForm from '../components/CommentForm';
 import ListComment from '../components/ListComment';
 import {Video} from 'expo-av';
+import {Platform} from 'react-native';
 
 const SinglePost = ({route, navigation}) => {
   const file = route.params;
   // console.log('File', file);
-  const videoRef = useRef(null);
+  const video = useRef(null);
   const {getUserById} = useUser();
   const {getFilesByTag} = useTag();
   const {postFavourite, getFavouriteById, deleteFavourite} = useFavourite();
@@ -124,11 +125,25 @@ const SinglePost = ({route, navigation}) => {
             <Text style={styles.description}>{file.description}</Text>
           )}
           <View style={{width: '97%', height: 200}}>
-            <Image
-              style={styles.image}
-              source={{uri: uploadsUrl + file.filename}}
-              resizeMode="cover"
-            />
+            {file.media_type === 'image' ? (
+              <Image
+                style={styles.image}
+                source={{uri: uploadsUrl + file.filename}}
+                resizeMode="cover"
+              />
+            ) : (
+              <Video
+                ref={video}
+                source={{uri: uploadsUrl + file.filename}}
+                style={styles.video}
+                resizeMode="cover"
+                useNativeControls
+                onError={(error) => {
+                  console.log(error);
+                }}
+                isLooping
+              />
+            )}
           </View>
           <View style={{flexDirection: 'column'}}>
             <View style={styles.buttonsRow}>
@@ -180,7 +195,7 @@ const SinglePost = ({route, navigation}) => {
             <Divider />
             <CommentForm fileId={file.file_id} />
           </View>
-          <View style={{maxHeight: '40%', padding: 5}}>
+          <View style={{padding: 5, marginBottom: 30}}>
             <ListComment navigation={navigation} fileId={file.file_id} />
           </View>
         </View>
@@ -196,7 +211,7 @@ SinglePost.propTypes = {
 export default SinglePost;
 const styles = StyleSheet.create({
   post: {
-    height: 610,
+    height: Platform.OS === 'android' ? 610 : 710,
     backgroundColor: '#E6EEFA',
     borderRadius: SIZES.font,
     marginBottom: SIZES.extraLarge,
@@ -226,6 +241,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: SIZES.font,
+    margin: 5,
+  },
+  video: {
+    width: '100%',
+    height: '100%',
+
     margin: 5,
   },
   buttonsRow: {
