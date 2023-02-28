@@ -22,6 +22,7 @@ import UserProfile from '../views/UserProfile';
 import ViewProfile from '../views/ViewProfile';
 import {Icon} from '@rneui/themed';
 import AppHeader from '../components/AppHeader';
+import {Platform} from 'expo-modules-core';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -194,7 +195,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#b0dbff',
     bottom: -2,
     marginHorizontal: 5,
-    height: 60,
+    height: Platform.OS === 'android' ? 60 : 92,
     paddingVertical: 0,
     borderRadius: 15,
     ...SHADOWS.dark,

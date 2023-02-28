@@ -11,6 +11,7 @@ import moment from 'moment';
 import {Divider, Icon} from '@rneui/themed';
 import CommentForm from '../components/CommentForm';
 import ListComment from '../components/ListComment';
+import {Platform} from 'expo-modules-core';
 // import {Video} from 'expo-av';
 
 const SinglePost = ({route, navigation}) => {
@@ -196,7 +197,7 @@ SinglePost.propTypes = {
 export default SinglePost;
 const styles = StyleSheet.create({
   post: {
-    height: 610,
+    height: Platform.OS === 'android' ? 610 : 710,
     backgroundColor: '#E6EEFA',
     borderRadius: SIZES.font,
     marginBottom: SIZES.extraLarge,
