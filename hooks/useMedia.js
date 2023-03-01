@@ -14,7 +14,6 @@ import {useTag} from './useTag';
 
 export const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState([]);
-
   const {update, user} = useContext(MainContext);
 
   const loadMedia = async () => {

@@ -14,7 +14,6 @@ import {Dialog} from 'react-native-elements';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Icon} from '@rneui/themed';
-import LikeImage from '../assets/images/like.png';
 import moment from 'moment';
 import {PopupMenu} from './';
 import {useUser, useFavourite, useTag, useMedia, useComment} from '../hooks';
@@ -70,8 +69,8 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
   const fetchComments = async () => {
     try {
       const commentsData = await getCommentById(singleMedia.file_id);
-      // console.log('Data from comment', commentsData);
       setComments(commentsData);
+      setUpdate(!update);
     } catch (e) {
       console.log('Error in fetching comments', e);
     }
@@ -79,7 +78,7 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
 
   useEffect(() => {
     fetchComments();
-  }, [commentUpdate]);
+  }, [update]);
 
   const loadAvatar = async () => {
     try {
@@ -87,7 +86,7 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
       // console.log('Avatar array', avatarArray);
       const avatar = avatarArray.pop().filename;
       setAvatar(uploadsUrl + avatar);
-      setPostUpdate(!postUpdate);
+      setUpdate(!update);
     } catch (error) {
       console.error('user avatar fetch failed', error.message);
     }
@@ -96,8 +95,6 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
     try {
       const likesData = await getFavouriteById(singleMedia.file_id);
       setLikes(likesData);
-
-      // setLikeUpdate(likeUpdate + 1);
       likesData.forEach((like) => {
         like.user_id === user.user_id && setUserLike(true);
       });
@@ -111,7 +108,6 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
       const response = await postFavourite(token, singleMedia.file_id);
       console.log('Response from create fav LI', response);
       setUserLike(true);
-      setLikeUpdate(likeUpdate + 1);
     } catch (error) {
       console.error('createFavourite error', error);
     }
@@ -122,7 +118,7 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
       const token = await AsyncStorage.getItem('userToken');
       const response = await deleteFavourite(token, singleMedia.file_id);
       response && setUserLike(false);
-      setLikeUpdate(likeUpdate + 1);
+      // setUpdate(!update);
     } catch (error) {
       console.error('removeFavourite error', error);
     }
@@ -130,12 +126,12 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
   useEffect(() => {
     fetchOwner();
     loadAvatar();
-  }, [postUpdate]);
+  }, [update]);
 
   useEffect(() => {
     // FIXME: setUserLike cause fetchLikes() which again setUserLike its a continues loop
     fetchLikes();
-  }, [userLike]);
+  }, [update]);
 
   const doDelete = () => {
     try {
@@ -214,14 +210,15 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
 
         <View>
           {user.user_id === singleMedia.user_id && (
-            <Icon
-              name="ellipsis-vertical"
-              type="ionicon"
-              raised
-              size={20}
-              style={styles.icon}
-              onPress={toggleDialog}
-            />
+            <PopupMenu options={options} onPress={onPopupEvent}>
+              <Icon
+                name="ellipsis-vertical"
+                type="ionicon"
+                raised
+                size={20}
+                style={styles.icon}
+              />
+            </PopupMenu>
           )}
 
           <Dialog

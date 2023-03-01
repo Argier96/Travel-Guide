@@ -23,6 +23,7 @@ const List = ({navigation, myFilesOnly = false}) => {
                 myFilesOnly={myFilesOnly}
               />
             )}
+            initialNumToRender={10}
             showsVerticalScrollIndicator={false}
             ListHeaderComponent={<FeedHeader />}
           />

@@ -1,4 +1,10 @@
-import {View, Text, SafeAreaView, FlatList} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import {useState, useContext, useEffect} from 'react';
 import {useComment} from '../hooks';
 

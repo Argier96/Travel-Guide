@@ -215,7 +215,6 @@ const NewPost = ({navigation}) => {
               }
               title=" Gallery"
               onPress={pickFile}
-              loading={loading}
             />
             <Button
               buttonStyle={styles.btnWithIcon}
@@ -224,7 +223,6 @@ const NewPost = ({navigation}) => {
               }
               title="Camera"
               onPress={takePicture}
-              loading={loading}
             />
           </View>
           <Button
