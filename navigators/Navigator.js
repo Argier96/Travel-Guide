@@ -169,7 +169,7 @@ const StackScreen = () => {
         </>
       ) : (
         <>
-          <Stack.Screen name="FirstPage" component={FirstPage}></Stack.Screen>
+          <Stack.Screen name="Welcome" component={FirstPage} />
           <Stack.Screen name="Login" component={LoginForm}></Stack.Screen>
           <Stack.Screen name="Register" component={RegisterForm}></Stack.Screen>
         </>

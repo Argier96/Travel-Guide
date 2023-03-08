@@ -16,11 +16,13 @@ import {ProfileMediaCard} from '../components';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {uploadsUrl} from '../utils';
 import EmptyListAnimation from '../components/ListEmptyAnimation';
+import {useNavigation} from '@react-navigation/native';
 import UserAvatar from '../components/UserAvatar';
 
-const ViewProfile = ({navigation, myFilesOnly = true}) => {
+const ViewProfile = ({myFilesOnly = true}) => {
   const {mediaArray} = useMedia(myFilesOnly);
   const {getFilesByTag} = useTag();
+  const {postUpdate, setPostUpdate} = useContext(MainContext);
   const [index, setIndex] = useState('none');
   const [eventName, setEventName] = useState('none');
   const [selectedOption, setSelectedOption] = useState('none');
@@ -28,7 +30,7 @@ const ViewProfile = ({navigation, myFilesOnly = true}) => {
   const [avatar, setAvatar] = useState('http://placekitten.com/640');
   const [noOfFavorites, setNoOfFavorites] = useState(0);
   const {getUserFavorites} = useFavourite();
-
+  const navigation = useNavigation();
   const {user, setIsLoggedIn, isEditProfile, setIsEditProfile} =
     React.useContext(MainContext);
 
@@ -42,7 +44,6 @@ const ViewProfile = ({navigation, myFilesOnly = true}) => {
       console.error('user avatar fetch failed', error.message);
     }
   };
-
   const renderItem = ({item, i}) => {
     return (
       <ProfileMediaCard
@@ -88,7 +89,6 @@ const ViewProfile = ({navigation, myFilesOnly = true}) => {
             }}
             size="large"
           />
-
           <View
             style={{
               top: 45,

@@ -1,12 +1,34 @@
 import {View, StyleSheet, Text, Platform} from 'react-native';
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Button} from '@rneui/themed';
 import {useNavigation} from '@react-navigation/native';
 import {Svg, Path} from 'react-native-svg';
 import LottieIcons from './LottieIcons';
+import {MainContext} from '../contexts/MainContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useUser} from '../hooks';
 
 const FirstPage = () => {
   const navigation = useNavigation();
+  const {setIsLoggedIn, setUser} = useContext(MainContext);
+  const {getUserByToken} = useUser();
+  const checkToken = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+
+      if (userToken === null) return;
+      const userData = await getUserByToken(userToken);
+      console.log('checkToken', userData);
+      setUser(userData);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.error('checkToken', error);
+    }
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
   return (
     <View>
       <LottieIcons />
