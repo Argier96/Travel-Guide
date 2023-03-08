@@ -14,9 +14,9 @@ import {SIZES} from '../theme';
 // TODO move styling to style sheet
 const ModifyProfile = ({navigation}) => {
   const {checkUsername, updateUser} = useUser();
-  const {user, isEditProfile, setIsEditProfile, setUser} =
-    React.useContext(MainContext);
-  const {username, email} = user;
+  const {user, isEditProfile, setIsEditProfile} = React.useContext(MainContext);
+  // eslint-disable-next-line camelcase
+  const {username, email, full_name} = user;
   const {
     control,
     getValues,
@@ -27,6 +27,8 @@ const ModifyProfile = ({navigation}) => {
       username: username || '',
       password: '',
       email: email || '',
+      // eslint-disable-next-line camelcase
+      full_name: full_name || '',
     },
     mode: 'onBlur',
   });
@@ -52,23 +54,19 @@ const ModifyProfile = ({navigation}) => {
   };
 
   const onSubmit = async (data) => {
-    const {getUserByToken} = useUser();
     try {
       await AsyncStorage.getItem('userToken').then(async (userToken) => {
         Object.keys(data).forEach(
           (key) => data[key] === '' && delete data[key]
         );
-        delete data.confirm_password;
         if (userToken) {
-          await updateUser(data, userToken).then(async () => {
-            const userData = await getUserByToken(userToken);
-            setUser(userData);
+          await updateUser(data, userToken).then(() => {
             setIsEditProfile(!isEditProfile);
           });
         }
       });
     } catch (error) {
-      console.log('Error on submit: ' + error);
+      console.log('Error AsyncStorage userToken');
     }
   };
 

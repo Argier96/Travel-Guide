@@ -21,9 +21,10 @@ import UserAvatar from '../components/UserAvatar';
 const ViewProfile = ({navigation, myFilesOnly = true}) => {
   const {mediaArray} = useMedia(myFilesOnly);
   const {getFilesByTag} = useTag();
-
-  const {postUpdate, setPostUpdate} = useContext(MainContext);
-
+  const [index, setIndex] = useState('none');
+  const [eventName, setEventName] = useState('none');
+  const [selectedOption, setSelectedOption] = useState('none');
+  const {update} = useContext(MainContext);
   const [avatar, setAvatar] = useState('http://placekitten.com/640');
   const [noOfFavorites, setNoOfFavorites] = useState(0);
   const {getUserFavorites} = useFavourite();
@@ -39,17 +40,6 @@ const ViewProfile = ({navigation, myFilesOnly = true}) => {
       setAvatar(uploadsUrl + avatar);
     } catch (error) {
       console.error('user avatar fetch failed', error.message);
-    }
-  };
-
-
-  const loadUserFavourites = async () => {
-    try {
-      const token = await AsyncStorage.getItem('userToken');
-      const userFavorites = await getUserFavorites(token);
-      setNoOfFavorites(userFavorites.length)
-    } catch (error) {
-      console.error('user favorites fetch failed', error.message);
     }
   };
 
@@ -81,8 +71,7 @@ const ViewProfile = ({navigation, myFilesOnly = true}) => {
   };
   useEffect(() => {
     loadAvatar();
-    loadUserFavourites();
-  }, []);
+  }, [update]);
   return (
     <SafeAreaView
       style={{
