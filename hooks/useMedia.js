@@ -41,6 +41,13 @@ export const useMedia = (myFilesOnly) => {
     loadMedia();
   }, [update]);
 
+  const getMediaById = async (fileId) => {
+    try {
+      await doFetch(baseUrl + mediaPath + fileId);
+    } catch (error) {
+      console.error('getMediaById', error);
+    }
+  };
   const postMedia = async (fileData, token) => {
     const options = {
       method: HTTP_METHOD.POST,
@@ -119,7 +126,7 @@ export const useMedia = (myFilesOnly) => {
     const options = {
       method: HTTP_METHOD.PUT,
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         'x-access-token': token,
       },
@@ -140,5 +147,45 @@ export const useMedia = (myFilesOnly) => {
     getAllFilesOfUser,
     searchMedia,
     updateMedia,
+    getMediaById,
   };
 };
+
+/**
+ * const getAllFilesOfUser = async (userId, token) => {
+    const tagResult = [];
+    const options = {
+      method: HTTP_METHOD.GET,
+      headers: {
+        'x-access-token': token,
+      },
+    };
+
+    try {
+      const json = await doFetch(
+        baseUrl + mediaPath + userPath + userId,
+        options
+      );
+      // console.log('Json', json);
+      await Promise.all(
+        json.map(async (item) => {
+          const tagArray = await useTag().getTagsOfFile(item.file_id);
+          // console.log('Tag array', tagArray);
+          const appTaggedArray = tagArray.filter((tag) => tag.tag === appId);
+          // console.log('Apptagged array', appTaggedArray);
+          if (appTaggedArray.length > 0) {
+            console.log('fileid', item.file_id);
+            const response = await getMediaById(item.file_id);
+            console.log('response', response);
+            tagResult.push(response);
+          }
+        })
+      );
+      console.log('Tag result', tagResult);
+      return tagResult;
+    } catch (error) {
+      throw new Error('Error in getting files of a user: ' + error.message);
+    }
+  };
+
+ */

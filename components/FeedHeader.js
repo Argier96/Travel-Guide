@@ -1,29 +1,12 @@
-import {useContext, useState, useEffect} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
-import {COLORS, SIZES, FONTS, assets} from '../theme';
+import {useContext} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import {COLORS, SIZES, FONTS} from '../theme';
 import {MainContext} from '../contexts/MainContext';
-import {useTag} from '../hooks';
-import {uploadsUrl} from '../utils';
 import TopPost from './TopPost';
+import UserAvatar from './UserAvatar';
 
 const FeedHeader = () => {
   const {user} = useContext(MainContext);
-  const {getFilesByTag} = useTag();
-  const [avatar, setAvatar] = useState('http://placekitten.com/640');
-  const loadAvatar = async () => {
-    try {
-      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
-
-      const avatar = avatarArray.pop().filename;
-      setAvatar(uploadsUrl + avatar);
-    } catch (error) {
-      console.error('user avatar fetch failed', error.message);
-    }
-  };
-  useEffect(() => {
-    loadAvatar();
-  }, []);
-
   const getGreeting = () => {
     const hour = new Date().getHours();
     let greeting = '';
@@ -45,20 +28,12 @@ const FeedHeader = () => {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.logoContainer}>
-        <Text style={{fontSize: 18, fontWeight: 'bold'}}>Travel Guide</Text>
+        <Text style={{fontSize: 18, fontWeight: 'bold', color: 'white'}}>
+          Travel Guide
+        </Text>
 
         <View style={styles.userAvatarContainer}>
-          <Image
-            source={{uri: avatar}}
-            resizeMode="contain"
-            style={styles.userAvatar}
-          />
-
-          <Image
-            source={assets.badge}
-            resizeMode="contain"
-            style={styles.avatarBadge}
-          />
+          <UserAvatar userId={user.user_id} />
         </View>
       </View>
       <View>
@@ -77,13 +52,13 @@ export default FeedHeader;
 
 const styles = StyleSheet.create({
   feedOption: {
-    fontSize: 20,
+    fontSize: SIZES.large,
   },
   RecOption: {
-    fontSize: 20,
-    marginLeft: 20,
+    fontSize: SIZES.large,
+    marginLeft: SIZES.large,
   },
-  leftMargin: {marginLeft: 20},
+  leftMargin: {marginLeft: SIZES.large},
 
   headerContainer: {
     backgroundColor: COLORS.primary,
@@ -98,8 +73,8 @@ const styles = StyleSheet.create({
     width: 170,
     height: 60,
   },
-  userAvatarContainer: {width: 45, height: 45, marginRight: 20},
-  userAvatar: {width: '100%', height: '100%', borderRadius: 25},
+  userAvatarContainer: {width: 45, height: 45, marginRight: SIZES.large},
+  userAvatar: {width: '100%', height: '100%', borderRadius: SIZES.extraLarge},
   avatarBadge: {
     position: 'absolute',
     width: SIZES.font,

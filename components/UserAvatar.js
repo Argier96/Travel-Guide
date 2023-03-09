@@ -9,12 +9,17 @@ import {MainContext} from '../contexts/MainContext';
 const UserAvatar = ({userId}) => {
   const {isAvatarUpdated} = useContext(MainContext);
   const {getFilesByTag} = useTag();
-  const [avatar, setAvatar] = useState('http://placekitten.com/640');
+  const [avatar, setAvatar] = useState(
+    'https://via.placeholder.com/180&text=loading'
+  );
 
   const loadAvatar = async () => {
     try {
       const avatarArray = await getFilesByTag('avatar_' + userId);
-      const avatar = avatarArray ? avatarArray.pop().filename : undefined;
+      if (avatarArray.length === 0) {
+        return;
+      }
+      const avatar = avatarArray.pop().filename;
       setAvatar(uploadsUrl + avatar);
     } catch (error) {
       console.error('user avatar fetch failed', error.message);

@@ -88,6 +88,7 @@ const ModifyProfile = ({navigation}) => {
               h4Style={{
                 fontWeight: '100',
                 textAlign: 'center',
+                marginLeft: SIZES.xxl,
               }}
             >
               Edit Profile

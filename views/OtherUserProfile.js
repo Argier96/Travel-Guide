@@ -19,7 +19,9 @@ import {SIZES, COLORS} from '../theme';
 const OtherUserProfile = ({navigation, route}) => {
   const {file} = route.params;
   const [userFiles, setUserFiles] = useState([]);
-  const [avatar, setAvatar] = useState('http://placekitten.com/640');
+  const [avatar, setAvatar] = useState(
+    'https://via.placeholder.com/180&text=loading'
+  );
   const {getFilesByTag} = useTag();
   const {getUserById} = useUser();
   const {getAllFilesOfUser} = useMedia();
@@ -62,7 +64,7 @@ const OtherUserProfile = ({navigation, route}) => {
 
   const getOtherUserFavoritesCount = async () => {
     try {
-      setNoOfFavorites(await getOtherUserFavorites(file.user_id))
+      setNoOfFavorites(await getOtherUserFavorites(file.user_id));
     } catch (error) {
       console.log('Error in fetching other user favorites count', error);
     }

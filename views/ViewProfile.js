@@ -17,17 +17,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {uploadsUrl} from '../utils';
 import EmptyListAnimation from '../components/ListEmptyAnimation';
 import {useNavigation} from '@react-navigation/native';
-import UserAvatar from '../components/UserAvatar';
 
 const ViewProfile = ({myFilesOnly = true}) => {
   const {mediaArray} = useMedia(myFilesOnly);
   const {getFilesByTag} = useTag();
-  const {postUpdate, setPostUpdate} = useContext(MainContext);
-  const [index, setIndex] = useState('none');
-  const [eventName, setEventName] = useState('none');
-  const [selectedOption, setSelectedOption] = useState('none');
   const {update} = useContext(MainContext);
-  const [avatar, setAvatar] = useState('http://placekitten.com/640');
+  const [avatar, setAvatar] = useState(
+    'https://via.placeholder.com/180&text=loading'
+  );
   const [noOfFavorites, setNoOfFavorites] = useState(0);
   const {getUserFavorites} = useFavourite();
   const navigation = useNavigation();
@@ -42,6 +39,15 @@ const ViewProfile = ({myFilesOnly = true}) => {
       setAvatar(uploadsUrl + avatar);
     } catch (error) {
       console.error('user avatar fetch failed', error.message);
+    }
+  };
+  const loadUserFavourites = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      const userFavorites = await getUserFavorites(token);
+      setNoOfFavorites(userFavorites.length);
+    } catch (error) {
+      console.error('user favorites fetch failed', error.message);
     }
   };
   const renderItem = ({item, i}) => {
@@ -72,6 +78,7 @@ const ViewProfile = ({myFilesOnly = true}) => {
   };
   useEffect(() => {
     loadAvatar();
+    loadUserFavourites();
   }, [update]);
   return (
     <SafeAreaView

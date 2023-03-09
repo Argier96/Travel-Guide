@@ -10,22 +10,10 @@ import PropTypes from 'prop-types';
 import UserAvatar from './UserAvatar';
 
 const LikeItem = ({navigation, singleLike}) => {
-  const {getFilesByTag} = useTag();
-
   const {getUserById} = useUser();
 
   const [likeOwner, setLikeOwner] = useState({username: 'fetching..'});
-  const [avatar, setAvatar] = useState('https//:placekittens/180');
 
-  const loadAvatar = async () => {
-    try {
-      const avatarArray = await getFilesByTag('avatar_' + singleLike.user_id);
-      const avatar = avatarArray.pop().filename;
-      setAvatar(uploadsUrl + avatar);
-    } catch (error) {
-      console.error('user avatar fetch failed', error.message);
-    }
-  };
   const fetchLikeOwner = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -38,11 +26,10 @@ const LikeItem = ({navigation, singleLike}) => {
   };
   useEffect(() => {
     fetchLikeOwner();
-    loadAvatar();
   }, []);
 
   return (
-    <Card containerStyle={{height: 65, borderRadius: 10, margin: 2}}>
+    <Card containerStyle={{height: 65, borderRadius: SIZES.font, margin: 2}}>
       <Pressable
         onPress={() => {
           console.log('userid', singleLike.user_id);

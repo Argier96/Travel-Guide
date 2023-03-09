@@ -66,7 +66,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginTop: -8,
   },
-  feedView: {backgroundColor: COLORS.primary, padding: 5, marginBottom: -15},
+  feedView: {
+    backgroundColor: COLORS.primary,
+    padding: 5,
+    marginTop: 5,
+    marginBottom: -15,
+  },
   feedText: {
     fontSize: 20,
     fontWeight: 'bold',

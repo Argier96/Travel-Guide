@@ -34,7 +34,9 @@ const SinglePost = ({route, navigation}) => {
   const {user, commentUpdate, update, setUpdate, likeUpdate, setLikeUpdate} =
     useContext(MainContext);
   const [owner, setOwner] = useState({username: 'fetching..'});
-  const [avatar, setAvatar] = useState('https//:placekittens/180');
+  const [avatar, setAvatar] = useState(
+    'https://via.placeholder.com/180&text=loading'
+  );
   const [likes, setLikes] = useState([]);
   const [userLike, setUserLike] = useState(false);
   const {getCommentById} = useComment();
@@ -66,7 +68,10 @@ const SinglePost = ({route, navigation}) => {
   const loadAvatar = async () => {
     try {
       const avatarArray = await getFilesByTag('avatar_' + file.user_id);
-      // console.log(avatarArray);
+      if (avatarArray.length === 0) {
+        return;
+      }
+
       const avatar = avatarArray.pop().filename;
       setAvatar(uploadsUrl + avatar);
     } catch (error) {

@@ -7,14 +7,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {uploadsUrl} from '../utils';
 import {useComment} from '../hooks';
 import moment from 'moment';
-import {SHADOWS} from '../theme';
+import {SHADOWS, SIZES} from '../theme';
 import PropTypes from 'prop-types';
 import PopupMenu from './PopupMenu';
 
 const CommentItem = ({navigation, singleComment}) => {
   const {getFilesByTag} = useTag();
   const {deleteComment} = useComment();
-  const [avatar, setAvatar] = useState('http://placekitten.com/640');
+  const [avatar, setAvatar] = useState(
+    'https://via.placeholder.com/180&text=loading'
+  );
   const {getUserById} = useUser();
   const [commentOwner, setCommentOwner] = useState({username: 'loading..'});
   const {user, commentUpdate, setCommentUpdate} = useContext(MainContext);
@@ -121,21 +123,13 @@ const CommentItem = ({navigation, singleComment}) => {
             </Text>
           </View>
         </View>
-        <View
-          style={{
-            flex: 1,
-            alignContent: 'space-between',
-            alignItems: 'center',
-            flexDirection: 'row',
-            marginRight: 5,
-          }}
-        >
+        <View style={styles.commentContainer}>
           {user.user_id === singleComment.user_id ? (
             <PopupMenu options={options} onPress={onPopupEvent}>
               <Text
                 ellipsizeMode="tail"
                 numberOfLines={2}
-                style={{marginLeft: 10}}
+                style={{marginLeft: SIZES.small}}
               >
                 {singleComment.comment}
               </Text>
@@ -144,7 +138,7 @@ const CommentItem = ({navigation, singleComment}) => {
             <Text
               ellipsizeMode="tail"
               numberOfLines={2}
-              style={{marginLeft: 10}}
+              style={{marginLeft: SIZES.small}}
             >
               {singleComment.comment}
             </Text>
@@ -186,13 +180,20 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 40,
     height: 40,
-    borderRadius: 25,
-    marginRight: 10,
+    borderRadius: SIZES.extraLarge,
+    marginRight: SIZES.small,
     marginLeft: 1,
   },
-  name: {fontWeight: '500', fontSize: 12},
-  subtitle: {color: 'gray', fontSize: 9},
+  name: {fontWeight: '500', fontSize: SIZES.small},
+  subtitle: {color: 'gray', fontSize: 10},
   icon: {marginLeft: 'auto'},
   // Body
   description: {paddingHorizontal: 10, lineHeight: 20, letterSpacing: 0.3},
+  commentContainer: {
+    flex: 1,
+    alignContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginRight: 5,
+  },
 });
