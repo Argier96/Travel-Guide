@@ -11,13 +11,18 @@ Travel guide is React Native media share application where users can share image
 * [X]  User can modify, delete own's post, comment or dislike already liked post.
 * [X] User can visit own's or other user's profile page
 * [X] User can upload new avatar, modify username and password
-* [ ] Could not do this
+
 
 ## Technologies
 
 1. React Native
 2. react native component
-3. Add more.... Fonts, Navigation......
+3. UI Library: [React Native Elements](https://reactnativeelements.com/docs)
+4. [React Navigation](https://reactnavigation.org/)
+5. [React Hook Form](https://react-hook-form.com/get-started)
+6. [Lottie](https://lottiereact.com/)
+7. [Expo](https://docs.expo.dev/)
+8. And many more...
 
 ## Prerequisite
 
@@ -106,31 +111,31 @@ npm install
 npm start
 ```
 
-###On Android phone
+### On Android phone
 Now download the expo app from [android play store](https://play.google.com/store/apps/details?id=host.exp.exponent) or [ios app store](https://apps.apple.com/us/app/expo-client/id982107779) then open expo app on the phone. Scan the QR code from the metro bundle in http://localhost:19000, You will be able to run the app now.
 
+
+## Backend documentation
+- [WBMA](https://media.mw.metropolia.fi/wbma/docs)
+
+## Fixing done based on feedback
+- UI modified to remove the confusion in like/favourite and likers list
+- Background color of feed header changed 
+- Upload post icon modified
+- Register page modified to avoid keyboard block
+- Fixed useravatar unstability
+- Uniform Notification feature added throughout the app
 
 ## Project contributors
 - [Binod Panta](https://github.com/frozenfi)
 - [Ritesh Ghimire](https://github.com/Argier96)
 - [Anwar Ulhaq](https://github.com/anwar-ulhaq)
 
-## Backend documentation
-- [WBMA](https://media.mw.metropolia.fi/wbma/docs)
-
-## Known Bugs
-
-* App not responsive on small screen devices.
-
 ## Screenshots
 
-<img src="screens/first-page.png" width="400"> <img src="screens/term-condition.png" width="400">
-<img src="screens/login.png" width="400"> <img src="screens/register.png" width="400">
-<img src="screens/media-list.png" width="400"> <img src="screens/search.png" width="400">
-<img src="screens/favoutites.png" width="400"> <img src="screens/profile.png" width="400">
+<img src="screens/first-page.png" width="200"> <img src="screens/term-condition.png" width="200">
+<img src="screens/login.png" width="200"> <img src="screens/register.png" width="200">
+<img src="screens/media-list.png" width="200"> <img src="screens/search.png" width="200">
+<img src="screens/favoutites.png" width="200"> <img src="screens/profile.png" width="200">
 
-## Demo (Expo server)
 
-You need to download Expo client app from Google PlayStore and scan this QR code.
-
-<img src="Screens/projectQR.png" width="400">
