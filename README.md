@@ -11,6 +11,7 @@ Travel guide is React Native media share application where users can share image
 * [X]  User can modify, delete own's post, comment or dislike already liked post.
 * [X] User can visit own's or other user's profile page
 * [X] User can upload new avatar, modify username and password
+* [X] User can view who liked or commented in the post
 
 
 ## Technologies
