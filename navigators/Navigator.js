@@ -21,6 +21,7 @@ import RegisterForm from '../components/RegisterForm';
 import LoginForm from '../components/LoginForm';
 import AppHeader from '../components/AppHeader';
 import UserProfile from '../views/UserProfile';
+import CommentedBy from '../views/CommentedBy';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -159,6 +160,13 @@ const StackScreen = () => {
             component={OtherUserProfile}
             options={{
               header: () => <AppHeader title={'Profile'} />,
+            }}
+          />
+          <Stack.Screen
+            name="CommentedBy"
+            component={CommentedBy}
+            options={{
+              header: () => <AppHeader title={'Commentators'} />,
             }}
           />
         </>

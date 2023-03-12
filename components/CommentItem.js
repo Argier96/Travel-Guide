@@ -89,7 +89,7 @@ const CommentItem = ({navigation, singleComment}) => {
             );
             console.log('Response from delete comment', response);
             if (response) {
-              setCommentUpdate(commentUpdate + 1);
+              setCommentUpdate(!commentUpdate);
               setNotification({
                 type: 'success',
                 title: 'Comment deleted successfully',

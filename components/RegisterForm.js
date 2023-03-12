@@ -45,13 +45,15 @@ const RegisterForm = () => {
     delete registerData.confirmPassword;
     try {
       const registerResult = await postUser(registerData);
-      registerResult &&
+      if (registerResult) {
         setNotification({
           type: 'success',
           title: 'Registered successfully',
           message: 'welcome to the family',
-        }) &&
+        });
         setIsNotification(!isNotification);
+        navigation.navigate('Login');
+      }
     } catch (error) {
       console.error('register', error);
     }
@@ -65,6 +67,7 @@ const RegisterForm = () => {
     }
   };
   const createButtonAlert = () => {
+    checkUserAgreesTCs(false);
     setNotification({
       type: 'info',
       title: 'Terms and Condition',
@@ -137,7 +140,7 @@ const RegisterForm = () => {
                 render={({field: {onChange, onBlur, value}}) => (
                   <View style={{marginTop: -20}}>
                     <Input
-                      placeholder="3 characters, 1 number and 1 Uppercase letter."
+                      placeholder="5 characters, 1 number and 1 Uppercase letter."
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
@@ -149,6 +152,7 @@ const RegisterForm = () => {
                           size={20}
                         />
                       }
+                      errorMessage={errors.password && errors.password.message}
                     />
                   </View>
                 )}
@@ -360,7 +364,7 @@ const RegisterForm = () => {
                 <Text style={{marginBottom: 100}}></Text>
                 <Button
                   title={'I agree to T&Cs'}
-                  onPress={createButtonAlert}
+                  onPress={() => createButtonAlert()}
                 ></Button>
                 <Button
                   type="outline"

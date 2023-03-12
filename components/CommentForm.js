@@ -54,7 +54,7 @@ const CommentForm = ({fileId}) => {
         });
         setIsNotification(!isNotification);
         reset();
-        setCommentUpdate(commentUpdate + 1);
+        setCommentUpdate(!commentUpdate);
       }
     } catch (e) {
       console.error('Error on uploading comment');

@@ -82,15 +82,17 @@ const ModifyAvatar = ({navigation}) => {
       const result = await postMedia(formData, token);
       const appTag = {file_id: result.file_id, tag: 'avatar_' + user.user_id};
       const tagResult = await postTag(appTag, token);
-      tagResult &&
+      if (tagResult) {
         setNotification({
           type: 'success',
           title: 'Avatar upload successfully',
           message: '',
-        }) &&
-        setIsNotification(!isNotification) &&
-        setUpdate(!update) &&
+        });
+        setIsNotification(!isNotification);
+        setUpdate(!update);
+        setIsAvatarUpdated(!isAvatarUpdated);
         navigation.navigate('Profile');
+      }
     } catch (error) {
       console.error('Avatar upload failed', error.message);
     } finally {

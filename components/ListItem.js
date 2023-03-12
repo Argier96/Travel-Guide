@@ -232,61 +232,74 @@ const ListItem = ({navigation, singleMedia, myFilesOnly}) => {
               isLooping
             />
           )}
+          <View
+            style={{
+              flexDirection: 'column',
+              position: 'absolute',
+              top: '60%',
+              left: '86%',
+            }}
+          >
+            <View>
+              <Icon
+                size={16}
+                solid
+                color={COLORS.primary}
+                raised
+                reverse={likes.length === 0}
+                name="heart"
+                type="font-awesome"
+                onPress={() => {
+                  navigation.navigate('LikedBy', {file: singleMedia});
+                }}
+              />
+              {likes.length === 0 ? (
+                <></>
+              ) : (
+                <Badge
+                  status="error"
+                  value={likes.length}
+                  containerStyle={{
+                    position: 'absolute',
+                    left: 32,
+                  }}
+                />
+              )}
+            </View>
+            <View>
+              <Icon
+                size={16}
+                solid
+                color={COLORS.primary}
+                raised
+                reverse={comments.length === 0}
+                name="chatbox-ellipses-outline"
+                type="ionicon"
+                // TODO point to proper navigation
+                onPress={() => {
+                  navigation.navigate('CommentedBy', {file: singleMedia});
+                }}
+                // onPress={toggleMediaLike}
+              />
+              {comments.length === 0 ? (
+                <></>
+              ) : (
+                <Badge
+                  status="error"
+                  value={comments.length}
+                  containerStyle={{
+                    position: 'absolute',
+                    left: 32,
+                  }}
+                />
+              )}
+            </View>
+          </View>
         </View>
       </Pressable>
 
       <View style={styles.footer}>
         <View style={styles.statsRow}>
-          <View>
-            <Icon
-              size={16}
-              solid
-              color={COLORS.primary}
-              raised
-              reverse={likes.length === 0}
-              name="heart"
-              type="font-awesome"
-              onPress={() =>
-                navigation.navigate('LikedBy', {file: singleMedia})
-              }
-            />
-            {likes.length === 0 ? (
-              <></>
-            ) : (
-              <Badge
-                status="error"
-                value={likes.length}
-                containerStyle={{
-                  position: 'absolute',
-                  left: 32,
-                }}
-              />
-            )}
-          </View>
-          <View>
-            <Icon
-              size={16}
-              solid
-              color={COLORS.primary}
-              raised
-              reverse={comments.length === 0}
-              name="chatbox-ellipses-outline"
-              type="ionicon"
-              // onPress={toggleMediaLike}
-            />
-            {comments.length === 0 ? (
-              <></>
-            ) : (
-              <Badge
-                status="error"
-                value={comments.length}
-                containerStyle={{
-                  position: 'absolute',
-                  left: 32,
-                }}
-              />
-            )}
-          </View>
           <View>
             <Icon
               size={16}

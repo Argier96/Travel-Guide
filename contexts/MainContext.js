@@ -7,7 +7,7 @@ const MainProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [update, setUpdate] = useState(true);
-  const [commentUpdate, setCommentUpdate] = useState(0);
+  const [commentUpdate, setCommentUpdate] = useState(false);
   const [postUpdate, setPostUpdate] = useState(0);
   const [likeUpdate, setLikeUpdate] = useState(false);
   const [isEditProfile, setIsEditProfile] = useState(false);

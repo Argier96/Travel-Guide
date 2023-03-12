@@ -78,7 +78,8 @@ const ListComment = ({navigation, fileId}) => {
 
             borderBottomLeftRadius: 8,
             borderBottomRightRadius: 8,
-        }}>
+          }}
+        >
           <FlatList
             data={comments}
             keyExtractor={(item) => item.comment_id}

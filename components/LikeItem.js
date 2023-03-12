@@ -1,13 +1,15 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useUser} from '../hooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card} from '@rneui/themed';
 import PropTypes from 'prop-types';
 import UserAvatar from './UserAvatar';
+import {MainContext} from '../contexts/MainContext';
 
 const LikeItem = ({navigation, singleLike}) => {
   const {getUserById} = useUser();
+  const {commentUpdate, likeUpdate} = useContext(MainContext);
 
   const [likeOwner, setLikeOwner] = useState({username: 'fetching..'});
 
@@ -23,7 +25,7 @@ const LikeItem = ({navigation, singleLike}) => {
   };
   useEffect(() => {
     fetchLikeOwner();
-  }, []);
+  }, [commentUpdate, likeUpdate]);
 
   return (
     <Card containerStyle={{height: 65, borderRadius: 10, margin: 2}}>

@@ -93,7 +93,7 @@ const FirstPage = () => {
       </View>
       <Svg
         style={{
-          bottom: Platform.OS === 'ios' ? -25 : 150,
+          bottom: Platform.OS === 'ios' ? -25 : 100,
           zIndex: -1,
         }}
       >

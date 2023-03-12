@@ -13,7 +13,7 @@ import {SIZES} from '../theme';
 
 // TODO move styling to style sheet
 const ModifyProfile = ({navigation}) => {
-  const {checkUsername, updateUser} = useUser();
+  const {checkUsername, updateUser, getUserByToken} = useUser();
   const {
     user,
     isEditProfile,
@@ -21,6 +21,9 @@ const ModifyProfile = ({navigation}) => {
     setUser,
     isUserUpdate,
     setIsUserUpdate,
+    isNotification,
+    setIsNotification,
+    setNotification,
   } = React.useContext(MainContext);
   const {username, email} = user;
   const {
@@ -58,7 +61,6 @@ const ModifyProfile = ({navigation}) => {
   };
 
   const onSubmit = async (data) => {
-    const {getUserByToken} = useUser();
     try {
       await AsyncStorage.getItem('userToken').then(async (userToken) => {
         Object.keys(data).forEach(
@@ -67,6 +69,12 @@ const ModifyProfile = ({navigation}) => {
         delete data.confirm_password;
         if (userToken) {
           await updateUser(data, userToken).then(async () => {
+            setNotification({
+              type: 'info',
+              title: 'User data updated',
+              message: '',
+            });
+            setIsNotification(!isNotification);
             const userData = await getUserByToken(userToken);
             setUser(userData);
             setIsEditProfile(!isEditProfile);
