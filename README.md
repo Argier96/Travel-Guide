@@ -133,7 +133,7 @@ Now download the expo app from [android play store](https://play.google.com/stor
 - [Anwar Ulhaq](https://github.com/anwar-ulhaq)
 
 ## Video Link
-- [Demo Video](http://users.metropolia.fi/~binodp/wbma-23/travel-guide/appvideo.mp4) 
+- [Demo Video](https://users.metropolia.fi/~binodp/wbma-23/travel-guide/appvideo.mp4) 
 
 
 
