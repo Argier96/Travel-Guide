@@ -131,11 +131,9 @@ Now download the expo app from [android play store](https://play.google.com/stor
 - [Ritesh Ghimire](https://github.com/Argier96)
 - [Anwar Ulhaq](https://github.com/anwar-ulhaq)
 
-## Screenshots
+## Video Link
+- [Demo Video](http://users.metropolia.fi/~binodp/wbma-23/travel-guide/appvideo.mp4) 
 
-<img src="screens/first-page.png" width="200"> <img src="screens/term-condition.png" width="200">
-<img src="screens/login.png" width="200"> <img src="screens/register.png" width="200">
-<img src="screens/media-list.png" width="200"> <img src="screens/search.png" width="200">
-<img src="screens/favoutites.png" width="200"> <img src="screens/profile.png" width="200">
+
 
 
